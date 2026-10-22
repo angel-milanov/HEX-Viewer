@@ -1,0 +1,52 @@
+[package]
+name = "hexeditor"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+description = "A fast, feature-rich, cross-platform hex editor built with egui"
+license = "MIT"
+readme = "README.md"
+keywords = ["hex", "editor", "binary", "egui", "gui"]
+categories = ["development-tools", "command-line-utilities"]
+
+[dependencies]
+arboard = "3.6"
+crc32fast = "1"
+eframe = { version = "0.37", features = ["persistence"] }
+egui = { version = "0.37", features = ["monochrome_emoji_fonts"] }
+md-5 = "0.11"
+memchr = "2"
+rfd = "0.17"
+serde = { version = "1", features = ["derive"] }
+sha1 = "0.11"
+sha2 = "0.11"
+
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+
+# Fast-enough debug builds: optimize dependencies, keep our crate debuggable.
+[profile.dev.package."*"]
+opt-level = 2
+
+[package.metadata.deb]
+name = "hexeditor"
+maintainer = "Angel Milanov"
+copyright = "2026, Angel Milanov"
+section = "devel"
+priority = "optional"
+extended-description = """\
+A fast, feature-rich hex editor with insert/overwrite editing, unlimited undo, \
+pattern search with wildcards, a data inspector, checksums, statistics, \
+string extraction, file comparison and more."""
+assets = [
+    ["target/release/hexeditor", "usr/bin/", "755"],
+    ["assets/hexeditor.desktop", "usr/share/applications/", "644"],
+    ["assets/icon-256.png", "usr/share/icons/hicolor/256x256/apps/hexeditor.png", "644"],
+    ["README.md", "usr/share/doc/hexeditor/README.md", "644"],
+]

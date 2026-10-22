@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Hex Editor
+GenericName=Hex Editor
+Comment=View and edit binary files
+Exec=hexeditor %F
+Icon=hexeditor
+Terminal=false
+Categories=Development;Utility;
+MimeType=application/octet-stream;
+Keywords=hex;binary;editor;bytes;
